@@ -6,6 +6,11 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		D7C9DB662EA7A6F8005765D8 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = D7C9DB652EA7A6F8005765D8 /* Kingfisher */; };
+		D7C9DB692EA7A6FE005765D8 /* ComposableArchitecture in Frameworks */ = {isa = PBXBuildFile; productRef = D7C9DB682EA7A6FE005765D8 /* ComposableArchitecture */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		D7C9DB472EA7A594005765D8 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -52,6 +57,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D7C9DB692EA7A6FE005765D8 /* ComposableArchitecture in Frameworks */,
+				D7C9DB662EA7A6F8005765D8 /* Kingfisher in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -78,6 +85,7 @@
 				D7C9DB392EA7A592005765D8 /* CineNow */,
 				D7C9DB492EA7A594005765D8 /* CineNowTests */,
 				D7C9DB532EA7A594005765D8 /* CineNowUITests */,
+				D7C9DB672EA7A6FE005765D8 /* Frameworks */,
 				D7C9DB382EA7A592005765D8 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -90,6 +98,13 @@
 				D7C9DB502EA7A594005765D8 /* CineNowUITests.xctest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		D7C9DB672EA7A6FE005765D8 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -112,6 +127,8 @@
 			);
 			name = CineNow;
 			packageProductDependencies = (
+				D7C9DB652EA7A6F8005765D8 /* Kingfisher */,
+				D7C9DB682EA7A6FE005765D8 /* ComposableArchitecture */,
 			);
 			productName = CineNow;
 			productReference = D7C9DB372EA7A592005765D8 /* CineNow.app */;
@@ -195,6 +212,10 @@
 			);
 			mainGroup = D7C9DB2E2EA7A592005765D8;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				D7C9DB632EA7A673005765D8 /* XCRemoteSwiftPackageReference "swift-composable-architecture" */,
+				D7C9DB642EA7A6F8005765D8 /* XCRemoteSwiftPackageReference "Kingfisher" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = D7C9DB382EA7A592005765D8 /* Products */;
 			projectDirPath = "";
@@ -578,6 +599,38 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		D7C9DB632EA7A673005765D8 /* XCRemoteSwiftPackageReference "swift-composable-architecture" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/pointfreeco/swift-composable-architecture";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.22.0;
+			};
+		};
+		D7C9DB642EA7A6F8005765D8 /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/onevcat/Kingfisher";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 8.6.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		D7C9DB652EA7A6F8005765D8 /* Kingfisher */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D7C9DB642EA7A6F8005765D8 /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			productName = Kingfisher;
+		};
+		D7C9DB682EA7A6FE005765D8 /* ComposableArchitecture */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D7C9DB632EA7A673005765D8 /* XCRemoteSwiftPackageReference "swift-composable-architecture" */;
+			productName = ComposableArchitecture;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = D7C9DB2F2EA7A592005765D8 /* Project object */;
 }
