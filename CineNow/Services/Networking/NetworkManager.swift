@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import ComposableArchitecture
 
 protocol NetworkManagerService {
     func perform<Model: Codable>(_ route: APIController) async throws -> Model
@@ -18,6 +19,24 @@ final class NetworkManager: NetworkManagerService {
     init(session: URLSession = .shared, decoder: JSONDecoder = JSONDecoder()) {
         self.session = session
         self.decoder = decoder
+        setup()
+    }
+    
+}
+
+// MARK: - Setup
+
+private extension NetworkManager {
+    
+    func setup() {
+        setupDecoder()
+    }
+    
+    func setupDecoder() {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        decoder.dateDecodingStrategy = .formatted(dateFormatter)
+        decoder.keyDecodingStrategy = .convertFromSnakeCase
     }
     
 }
