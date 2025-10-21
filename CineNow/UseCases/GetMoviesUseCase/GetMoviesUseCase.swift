@@ -8,31 +8,20 @@
 import ComposableArchitecture
 import Foundation
 
-protocol GetMoviesUseCaseService {}
-
-struct GetMoviesUseCase: UseCase, GetMoviesUseCaseService {
-    @Dependency(\.networkManager) var networkManager: NetworkManagerService
-    let apiController: APIRoute.Type = APIRoute.self
+protocol GetMoviesUseCaseService {
+    func getFeatured() async throws -> [Movie]
 }
 
-// MARK: API Controller
+struct GetMoviesUseCase: GetMoviesUseCaseService {
+    @Dependency(\.movieRepository) var movieRepository: MovieRepositoryService
+}
+
+// MARK: -
 
 extension GetMoviesUseCase {
     
-    enum APIRoute: APIController {
-        case getList(atPage: Int)
-
-        var route: String {
-            switch self {
-                case .getList: "movie/top_rated"
-            }
-        }
-
-        var urlRequest: URLRequest {
-            switch self {
-                case let .getList(page): get(queryItems: URLQueryItem(name: "page", value: String(page)))
-            }
-        }
+    func getFeatured() async throws -> [Movie] {
+        try await movieRepository.fetchPopular(at: 1)
     }
     
 }

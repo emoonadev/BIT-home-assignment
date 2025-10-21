@@ -7,9 +7,9 @@
 
 import Foundation
 
-protocol UseCase {
+protocol RemoteDataSource {
     associatedtype Route: APIController
 
-    var networkManager: NetworkManagerService { get }
-    var apiController: Route.Type { get }
+    var api: NetworkManagerService { get }
+    var controller: Route.Type { get }
 }

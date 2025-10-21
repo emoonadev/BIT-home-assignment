@@ -8,11 +8,10 @@
 import Foundation
 import ComposableArchitecture
 
+// MARK: - Keys
 
 extension DependencyValues {
-    
-    // MARK: - Networking
-    
+        
     var networkManager: NetworkManagerService {
         get { self[NetworkManagerKey.self] }
         set { self[NetworkManagerKey.self] = newValue }
@@ -20,10 +19,15 @@ extension DependencyValues {
     
 }
 
+// MARK: -
 
-// MARK: - Networking Keys
+extension DependencyValues {
+    
+    // MARK: - Networking
 
-private enum NetworkManagerKey: DependencyKey {
-    static let liveValue: NetworkManagerService = NetworkManager()
+    fileprivate enum NetworkManagerKey: DependencyKey {
+        static let liveValue: NetworkManagerService = NetworkManager()
+    }
+    
 }
 
