@@ -18,7 +18,8 @@ struct MockMovieRemoteDataSource: MovieRemoteDataSourceService {
                 createdAt: DateFormatter.tmdbFormatter.date(from: "2022-12-14")!,
                 name: "Avatar: The Way of Water",
                 voteAverage: 7.7,
-                voteCount: 7535
+                voteCount: 7535,
+                posterPath: "/t6HIqrRAclMCA60NsSmeqe9RmNV.jpg"
             ),
             Movie(
                 id: 948_713,
@@ -26,7 +27,8 @@ struct MockMovieRemoteDataSource: MovieRemoteDataSourceService {
                 createdAt: DateFormatter.tmdbFormatter.date(from: "2023-04-14")!,
                 name: "The Last Kingdom: Seven Kings Must Die",
                 voteAverage: 7.4,
-                voteCount: 232
+                voteCount: 232,
+                posterPath: "/ym1dxyOk4jFcSl4Q2zmRrA5BEEN.jpg"
             ),
             Movie(
                 id: 677_179,
@@ -34,7 +36,8 @@ struct MockMovieRemoteDataSource: MovieRemoteDataSourceService {
                 createdAt: DateFormatter.tmdbFormatter.date(from: "2023-03-01")!,
                 name: "Creed III",
                 voteAverage: 7.3,
-                voteCount: 1192
+                voteCount: 1192,
+                posterPath: "/cvsXj3I9Q2iyyIo95AecSd1tad7.jpg"
             ),
             Movie(
                 id: 638_974,
@@ -42,7 +45,8 @@ struct MockMovieRemoteDataSource: MovieRemoteDataSourceService {
                 createdAt: DateFormatter.tmdbFormatter.date(from: "2023-03-28")!,
                 name: "Murder Mystery 2",
                 voteAverage: 6.5,
-                voteCount: 864
+                voteCount: 864,
+                posterPath: "/s4GA2ZSRS0L6XRQZJIZH8CUiAAK.jpg"
             ),
             Movie(
                 id: 713_704,
@@ -50,7 +54,8 @@ struct MockMovieRemoteDataSource: MovieRemoteDataSourceService {
                 createdAt: DateFormatter.tmdbFormatter.date(from: "2023-04-12")!,
                 name: "Evil Dead Rise",
                 voteAverage: 7.0,
-                voteCount: 207
+                voteCount: 207,
+                posterPath: "/5ik4ATKmNtmJU6AYD0MaiHACxJa.jpg"
             ),
             Movie(
                 id: 315_162,
@@ -58,7 +63,8 @@ struct MockMovieRemoteDataSource: MovieRemoteDataSourceService {
                 createdAt: DateFormatter.tmdbFormatter.date(from: "2022-12-07")!,
                 name: "Puss in Boots: The Last Wish",
                 voteAverage: 8.3,
-                voteCount: 5331
+                voteCount: 5331,
+                posterPath: "/kuf6dutpsT0vSVehic3EZIqkOBt.jpg"
             ),
             Movie(
                 id: 603_692,
@@ -66,7 +72,8 @@ struct MockMovieRemoteDataSource: MovieRemoteDataSourceService {
                 createdAt: DateFormatter.tmdbFormatter.date(from: "2023-03-22")!,
                 name: "John Wick: Chapter 4",
                 voteAverage: 8.0,
-                voteCount: 1211
+                voteCount: 1211,
+                posterPath: "/vZloFAK7NmvMGKE7VkF5UHaz0I.jpg"
             ),
         ]
     }
@@ -78,7 +85,8 @@ struct MockMovieRemoteDataSource: MovieRemoteDataSourceService {
             createdAt: DateFormatter.tmdbFormatter.date(from: "2023-03-22")!,
             name: "John Wick: Chapter 4",
             voteAverage: 8.0,
-            voteCount: 1211
+            voteCount: 1211,
+            posterPath: "/vZloFAK7NmvMGKE7VkF5UHaz0I.jpg"
         )
     }
     

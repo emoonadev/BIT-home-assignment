@@ -7,11 +7,27 @@
 
 import SwiftUI
 import SwiftData
+import ComposableArchitecture
 
 struct MainView: View {
 
     var body: some View {
-        Text("Hello, world!")
+        TabView {
+            Tab {
+                MoviesListView(store: Store(initialState: .init()) {
+                        MoviesListFeature()
+                    }
+                )
+            } label: {
+                Image(systemName: "house")
+            }
+            
+            Tab {
+                Text("Favorite")
+            } label: {
+                Image(systemName: "star.fill")
+            }
+        }
     }
 
 }

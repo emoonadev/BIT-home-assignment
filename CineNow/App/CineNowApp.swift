@@ -10,6 +10,11 @@ import SwiftData
 
 @main
 struct CineNowApp: App {
+    
+    init() {
+        setup()
+    }
+    
     var sharedModelContainer: ModelContainer = {
         let schema = Schema([
 //            Item.self,
@@ -29,4 +34,14 @@ struct CineNowApp: App {
         }
         .modelContainer(sharedModelContainer)
     }
+}
+
+// MARK: - Configurations
+
+extension CineNowApp {
+    
+    func setup() {
+        ImageCacheManager.configure()
+    }
+    
 }
