@@ -24,7 +24,6 @@ struct CineNowApp: App {
             MainView(store: store)
                 .preferredColorScheme(.dark)
         }
-        .modelContainer(sharedModelContainer)
     }
 }
 
