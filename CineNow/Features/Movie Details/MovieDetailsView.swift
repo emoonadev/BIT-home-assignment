@@ -192,6 +192,7 @@ private extension MovieDetailsView {
                 .font(.callout)
                 .lineLimit(nil)
                 .fixedSize(horizontal: false, vertical: true)
+                .padding(.bottom, 100)
         }
         .accessibilityElement(children: .combine)
         .accessibilityLabel("Overview: \(movie.overview)")
