@@ -12,25 +12,22 @@ struct MoviesListView: View {
     let store: StoreOf<MoviesListFeature>
 
     var body: some View {
-        NavigationStack {
-            VStack(spacing: 0) {
-                categories
-                
-                ZStack {
-                    if store.isLoading {
-                        loadingView
-                    } else if store.movies.isEmpty {
-                        emptyStateView
-                    } else {
-                        moviesScrollView
-                    }
+        VStack(spacing: 0) {
+            categories
+            
+            ZStack {
+                if store.isLoading {
+                    loadingView
+                } else if store.movies.isEmpty {
+                    emptyStateView
+                } else {
+                    moviesScrollView
                 }
-                .frame(maxHeight: .infinity)
             }
-            .navigationTitle("Movies")
-            .onAppear {
-                store.send(.onAppear)
-            }
+            .frame(maxHeight: .infinity)
+        }
+        .onAppear {
+            store.send(.onAppear)
         }
     }
 }
