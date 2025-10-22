@@ -7,26 +7,32 @@
 
 import SwiftUI
 import SwiftData
+import ComposableArchitecture
 
 @main
 struct CineNowApp: App {
-    var sharedModelContainer: ModelContainer = {
-        let schema = Schema([
-//            Item.self,
-        ])
-        let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
-
-        do {
-            return try ModelContainer(for: schema, configurations: [modelConfiguration])
-        } catch {
-            fatalError("Could not create ModelContainer: \(error)")
-        }
-    }()
+    let store = Store<MainFeature.State, MainFeature.Action>.withContext(initialState: MainFeature.State()) {
+        MainFeature()
+    }
+    
+    init() {
+        setup()
+    }
 
     var body: some Scene {
         WindowGroup {
-            MainView()
+            MainView(store: store)
+                .preferredColorScheme(.dark)
         }
-        .modelContainer(sharedModelContainer)
     }
+}
+
+// MARK: - Configurations
+
+extension CineNowApp {
+    
+    func setup() {
+        ImageCacheManager.configure()
+    }
+    
 }
