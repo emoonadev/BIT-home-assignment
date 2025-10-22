@@ -21,7 +21,7 @@ struct FavoritesFeature {
 
     enum Action {
         case onAppear
-        case loadFavorites
+        case loadFavorites(Bool)
         case favoritesLoaded(MoviesListResponseDTO)
         case displayErrorMessage(String)
         case movieDidTap(Movie)
@@ -37,9 +37,14 @@ struct FavoritesFeature {
         Reduce { state, action in
             switch action {
             case .onAppear:
-                return .send(.loadFavorites)
-            case .loadFavorites, .refreshFavorites:
-                state.isLoading = true
+                return .send(.loadFavorites(false))
+            case .refreshFavorites:
+                return .send(.loadFavorites(true))
+            case let .loadFavorites(isLoadingStateIgnored):
+                if !isLoadingStateIgnored {
+                    state.isLoading = true
+                }
+                
                 state.errorMessage = nil
 
                 return .run { send in
@@ -57,7 +62,7 @@ struct FavoritesFeature {
                 state.errorMessage = message
                 state.isLoading = false
             case let .movieDidTap(movie):
-                state.movieDetailsState = MovieDetailsFeature.State(movieID: movie.id)
+                state.movieDetailsState = MovieDetailsFeature.State(movieID: movie.id, isFavorite: true)
             case .movieDetailsAction:
                 break
             }

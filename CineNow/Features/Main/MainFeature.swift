@@ -35,10 +35,6 @@ struct MainFeature {
 
         Reduce { state, action in
             switch action {
-                case let .moviesListAction(.movieDidTap(movie)):
-                    state.movieDetailsState = MovieDetailsFeature.State(movieID: movie.id)
-                case let .favoritesAction(.movieDidTap(movie)):
-                    state.movieDetailsState = MovieDetailsFeature.State(movieID: movie.id)
                 case .moviesListAction, .favoritesAction:
                     break
             }

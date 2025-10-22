@@ -30,6 +30,9 @@ struct MovieDetailsView: View {
         .onAppear {
             store.send(.onAppear)
         }
+        .refreshable {
+            store.send(.refreshData)
+        }
     }
 }
 
@@ -84,7 +87,7 @@ private extension MovieDetailsView {
             }
 
             Button("Try Again") {
-                store.send(.loadMovieDetails)
+                store.send(.loadMovieDetails(true))
             }
             .buttonStyle(.bordered)
         }
@@ -196,7 +199,7 @@ private extension MovieDetailsView {
 
 #Preview {
     NavigationStack {
-        MovieDetailsView(store: Store(initialState: MovieDetailsFeature.State(movieID: 2222)) {
+        MovieDetailsView(store: Store(initialState: MovieDetailsFeature.State(movieID: 2222, isFavorite: false)) {
             MovieDetailsFeature()
                 .dependency(\.getMovieDetailsUseCase, DependencyValues.GetMovieDetailsUseCaseKey.previewValue)
         })

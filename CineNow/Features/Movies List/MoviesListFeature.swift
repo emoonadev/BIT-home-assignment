@@ -41,7 +41,8 @@ struct MoviesListFeature {
     enum Action {
         case onAppear
         case categoryDidChange(Movie.Category)
-        case loadMovies
+        case loadMovies(_ isLoadingStateIgnored: Bool = false)
+        case refreshMovies
         case loadMoreMovies
         case moviesLoaded(MoviesListResponseDTO)
         case moreMoviesLoaded(MoviesListResponseDTO)
@@ -58,13 +59,15 @@ struct MoviesListFeature {
     var body: some Reducer<State, Action> {
         Reduce { state, action in
             switch action {
+                case .refreshMovies:
+                    return .send(.loadMovies(true))
                 case .onAppear:
                     guard state.currentCategoryState.movies.isEmpty else { return .none }
-                    return .send(.loadMovies)
+                    return .send(.loadMovies())
                 case let .categoryDidChange(category):
                     state.selectedCategory = category
                     guard state.currentCategoryState.movies.isEmpty else { return .none }
-                    return .send(.loadMovies)
+                    return .send(.loadMovies())
                 case .loadMovies:
                     state.isLoading = true
                     state.currentCategoryState.currentPage = 1
@@ -114,7 +117,7 @@ struct MoviesListFeature {
                         return .send(.loadMoreMovies)
                     }
                 case let .movieDidTap(movie):
-                    state.movieDetailsState = MovieDetailsFeature.State(movieID: movie.id)
+                    state.movieDetailsState = MovieDetailsFeature.State(movieID: movie.id, isFavorite: false)
                 case .movieDetailsAction(_): break
             }
             

@@ -34,6 +34,9 @@ struct MoviesListView: View {
             .onAppear {
                 store.send(.onAppear)
             }
+            .refreshable {
+                store.send(.refreshMovies)
+            }
         }
     }
 }

@@ -29,6 +29,9 @@ struct FavoritesView: View {
             .onAppear {
                 store.send(.onAppear)
             }
+            .refreshable {
+                store.send(.refreshFavorites)
+            }
         }
     }
 }
