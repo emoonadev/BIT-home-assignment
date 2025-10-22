@@ -10,7 +10,7 @@ import Foundation
 
 struct MockMovieRemoteDataSource: MovieRemoteDataSourceService {
     
-    func fetchPopular(at index: Int) async throws -> [Movie] {
+    func fetchUpcoming(at index: Int) async throws -> [Movie] {
         [
             Movie(
                 id: 76600,
@@ -56,7 +56,12 @@ struct MockMovieRemoteDataSource: MovieRemoteDataSourceService {
                 voteAverage: 7.0,
                 voteCount: 207,
                 posterPath: "/5ik4ATKmNtmJU6AYD0MaiHACxJa.jpg"
-            ),
+            )
+        ]
+    }
+    
+    func fetchTopRated(at index: Int) async throws -> [Movie] {
+        [
             Movie(
                 id: 315_162,
                 overview: "Puss in Boots discovers that his passion for adventure has taken its toll: He has burned through eight of his nine lives, leaving him with only one life left. Puss sets out on an epic journey to find the mythical Last Wish and restore his nine lives.",
@@ -75,6 +80,83 @@ struct MockMovieRemoteDataSource: MovieRemoteDataSourceService {
                 voteCount: 1211,
                 posterPath: "/vZloFAK7NmvMGKE7VkF5UHaz0I.jpg"
             ),
+            Movie(
+                id: 855_263,
+                overview: "Struggling but unapologetically living on her own terms, Inez is moving from shelter to shelter in mid-1990s New York City. With her 6-year-old son Terry in foster care and unable to leave him again, she kidnaps him so they can build their life together.",
+                createdAt: DateFormatter.tmdbFormatter.date(from: "2023-03-31")!,
+                name: "A Thousand and One",
+                voteAverage: 8.3,
+                voteCount: 11,
+                posterPath: "/9WyipqK3wOf8lJLWqFX0r7aBodm.jpg"
+            ),
+            Movie(
+                id: 842_675,
+                overview: "Humans built huge engines on the surface of the earth to find a new home. But the road to the universe is perilous. In order to save earth, young people once again have to step forward to start a race against time for life and death.",
+                createdAt: DateFormatter.tmdbFormatter.date(from: "2023-01-22")!,
+                name: "The Wandering Earth II",
+                voteAverage: 7.6,
+                voteCount: 164,
+                posterPath: "/pR858ihc6Ls9xohpdRJVjV787ml.jpg"
+            ),
+            Movie(
+                id: 497_828,
+                overview: "A celebrity model couple are invited on a luxury cruise for the uber-rich, helmed by an unhinged, alcoholic captain. What first appears Instagrammable ends catastrophically, leaving the survivors stranded on a desert island in a struggle of hierarchy.",
+                createdAt: DateFormatter.tmdbFormatter.date(from: "2022-09-18")!,
+                name: "Triangle of Sadness",
+                voteAverage: 7.2,
+                voteCount: 1224,
+                posterPath: "/k9eLozCgCed5FGTSdHu0bBElAV8.jpg"
+            )
+        ]
+    }
+    
+    func fetchNowPlaying(at index: Int) async throws -> [Movie] {
+        [
+            Movie(
+                id: 713_704,
+                overview: "Two sisters find an ancient vinyl that gives birth to bloodthirsty demons that run amok in a Los Angeles apartment building and thrusts them into a primal battle for survival as they face the most nightmarish version of family imaginable.",
+                createdAt: DateFormatter.tmdbFormatter.date(from: "2023-04-12")!,
+                name: "Evil Dead Rise",
+                voteAverage: 7.0,
+                voteCount: 207,
+                posterPath: "/mIBCtPvKZQlxubxKMeViO2UrP3q.jpg"
+            ),
+            Movie(
+                id: 758_323,
+                overview: "Father Gabriele Amorth, Chief Exorcist of the Vatican, investigates a young boy's terrifying possession and ends up uncovering a centuries-old conspiracy the Vatican has desperately tried to keep hidden.",
+                createdAt: DateFormatter.tmdbFormatter.date(from: "2023-04-05")!,
+                name: "The Pope's Exorcist",
+                voteAverage: 6.5,
+                voteCount: 143,
+                posterPath: "/9JBEPLTPSm0d1mbEcLxULjJq9Eh.jpg"
+            ),
+            Movie(
+                id: 385_687,
+                overview: "Over many missions and against impossible odds, Dom Toretto and his family have outsmarted, out-nerved and outdriven every foe in their path. Now, they confront the most lethal opponent they've ever faced: A terrifying threat emerging from the shadows of the past who's fueled by blood revenge, and who is determined to shatter this family and destroy everything—and everyone—that Dom loves, forever.",
+                createdAt: DateFormatter.tmdbFormatter.date(from: "2023-05-17")!,
+                name: "Fast X",
+                voteAverage: 7.0,
+                voteCount: 524,
+                posterPath: "/jwMMQR69Xz9AYtX4u2uYJgfAAev.jpg"
+            ),
+            Movie(
+                id: 447_277,
+                overview: "The youngest of King Triton's daughters, and the most defiant, Ariel longs to find out more about the world beyond the sea, and while visiting the surface, falls for the dashing Prince Eric. With mermaids forbidden to interact with humans, Ariel makes a deal with the evil sea witch, Ursula, which gives her a chance to experience life on land, but ultimately places her life – and her father's crown – in jeopardy.",
+                createdAt: DateFormatter.tmdbFormatter.date(from: "2023-05-18")!,
+                name: "The Little Mermaid",
+                voteAverage: 7.2,
+                voteCount: 246,
+                posterPath: "/ym1dxyOk4jFcSl4Q2zmRrA5BEEN.jpg"
+            ),
+            Movie(
+                id: 447_365,
+                overview: "Peter Quill, still reeling from the loss of Gamora, must rally his team around him to defend the universe along with protecting one of their own. A mission that, if not completed successfully, could quite possibly lead to the end of the Guardians as we know them.",
+                createdAt: DateFormatter.tmdbFormatter.date(from: "2023-05-03")!,
+                name: "Guardians of the Galaxy Volume 3",
+                voteAverage: 8.5,
+                voteCount: 239,
+                posterPath: "/r2J02Z2OpNTctfOSN1Ydgii51I3.jpg"
+            )
         ]
     }
 
@@ -89,5 +171,4 @@ struct MockMovieRemoteDataSource: MovieRemoteDataSourceService {
             posterPath: "/vZloFAK7NmvMGKE7VkF5UHaz0I.jpg"
         )
     }
-    
 }

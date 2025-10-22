@@ -13,14 +13,19 @@ struct MoviesListView: View {
 
     var body: some View {
         NavigationStack {
-            ZStack {
-                if store.isLoading {
-                    loadingView
-                } else if store.movies.isEmpty {
-                    emptyStateView
-                } else {
-                    moviesScrollView
+            VStack(spacing: 0) {
+                categories
+                
+                ZStack {
+                    if store.isLoading {
+                        loadingView
+                    } else if store.movies.isEmpty {
+                        emptyStateView
+                    } else {
+                        moviesScrollView
+                    }
                 }
+                .frame(maxHeight: .infinity)
             }
             .navigationTitle("Movies")
             .onAppear {
@@ -33,6 +38,23 @@ struct MoviesListView: View {
 // MARK: - View Components
 
 private extension MoviesListView {
+    
+    var categories: some View {
+        Picker("Movie Category", selection: Binding(
+            get: { store.selectedCategory },
+            set: { store.send(.categoryDidChange($0)) }
+        )) {
+            ForEach(Movie.Category.allCases, id: \.self) { category in
+                Text(category.displayName)
+            }
+        }
+        .pickerStyle(.segmented)
+        .padding(.horizontal, 16)
+        .padding(.bottom, 16)
+        .accessibilityLabel("Movie categories")
+        .accessibilityHint("Select a category to filter movies")
+        .accessibilityValue("Currently selected: \(store.selectedCategory.displayName)")
+    }
     
     var loadingView: some View {
         VStack(spacing: 20) {
@@ -73,11 +95,8 @@ private extension MoviesListView {
             LazyVStack(spacing: 32) {
                 featuredMovieCard
 
-                VStack(alignment: .leading, spacing: 16) {
-                    sectionHeader("Popular Movies")
-                    popularMoviesGrid
-                }
-                .padding(.horizontal, 16)
+                upcomingMoviesGrid
+                    .padding(.horizontal, 16)
             }
             .padding(.top, 16)
         }
@@ -97,18 +116,7 @@ private extension MoviesListView {
         }
     }
 
-    func sectionHeader(_ title: String) -> some View {
-        HStack {
-            Text(title)
-                .font(.title2)
-                .fontWeight(.bold)
-
-            Spacer()
-        }
-        .accessibilityAddTraits(.isHeader)
-    }
-
-    var popularMoviesGrid: some View {
+    var upcomingMoviesGrid: some View {
         LazyVGrid(columns: [
             GridItem(.flexible(), spacing: 16),
             GridItem(.flexible(), spacing: 16),

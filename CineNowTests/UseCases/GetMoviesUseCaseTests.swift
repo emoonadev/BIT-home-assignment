@@ -28,7 +28,7 @@ struct GetMoviesUseCaseTests {
 
 extension GetMoviesUseCaseTests {
         
-    @Test("Get featured movies returns popular movies from page 1")
+    @Test("Get featured movies returns upcoming movies from page 1")
     func getFeaturedMovies() async throws {
         let movies = try await sut.getFeatured()
         

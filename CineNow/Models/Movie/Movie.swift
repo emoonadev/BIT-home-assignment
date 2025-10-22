@@ -28,3 +28,21 @@ struct Movie: Codable {
         self.posterPath = posterPath
     }
 }
+
+// MARK: -
+
+extension Movie {
+    
+    enum Category: String, CaseIterable {
+        case upcoming, topRated, nowPlaying
+        
+        var displayName: String {
+            return switch self {
+                case .upcoming: "Upcoming"
+                case .topRated: "Top Rated"
+                case .nowPlaying: "Now Playing"
+            }
+        }
+    }
+    
+}
