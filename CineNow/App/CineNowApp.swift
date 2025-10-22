@@ -35,6 +35,7 @@ struct CineNowApp: App {
     var body: some Scene {
         WindowGroup {
             MainView(store: store)
+                .preferredColorScheme(.dark)
         }
         .modelContainer(sharedModelContainer)
     }

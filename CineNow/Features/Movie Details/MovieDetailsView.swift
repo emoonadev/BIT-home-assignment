@@ -116,7 +116,7 @@ private extension MovieDetailsView {
             .scaledToFill()
             .frame(height: 400)
             .clipped()
-            .shadow(color: .black.opacity(0.3), radius: 10, x: 0, y: 5)
+            .shadow(color: .white.opacity(0.3), radius: 10, x: 0, y: 5)
             .accessibilityElement()
             .accessibilityLabel("Movie poster for \(movie.title)")
     }

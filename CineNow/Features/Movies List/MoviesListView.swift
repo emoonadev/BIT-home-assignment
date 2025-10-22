@@ -55,8 +55,8 @@ private extension MoviesListView {
             }
         }
         .pickerStyle(.segmented)
-        .padding(.horizontal, 16)
-        .padding(.bottom, 16)
+        .padding(.horizontal)
+        .padding(.bottom)
         .accessibilityLabel("Movie categories")
         .accessibilityHint("Select a category to filter movies")
         .accessibilityValue("Currently selected: \(store.selectedCategory.displayName)")
@@ -121,7 +121,7 @@ private extension MoviesListView {
                     store.send(.movieDidTap(featuredMovie))
                 } label: {
                     FeaturedMovieCardView(movie: featuredMovie)
-                        .padding(.horizontal, 16)
+                        .padding(.horizontal)
                 }
                 .buttonStyle(PlainButtonStyle())
             }
