@@ -36,12 +36,6 @@ private extension MovieRowView {
 
     var movieInfoView: some View {
         VStack(alignment: .leading) {
-            Text(movie.name)
-                .font(.subheadline)
-                .fontWeight(.semibold)
-                .lineLimit(2)
-                .multilineTextAlignment(.leading)
-            
             HStack(spacing: 4) {
                 Image(systemName: "star.fill")
                     .font(.caption)
