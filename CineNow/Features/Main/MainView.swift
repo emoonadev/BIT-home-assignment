@@ -13,30 +13,29 @@ struct MainView: View {
     @Bindable var store: StoreOf<MainFeature>
 
     var body: some View {
-        NavigationStack {
-            TabView {
-                Tab {
-                    MoviesListView(
-                        store: store.scope(
-                            state: \.moviesListState,
-                            action: \.moviesListAction
-                        )
+        TabView {
+            Tab {
+                MoviesListView(
+                    store: store.scope(
+                        state: \.moviesListState,
+                        action: \.moviesListAction
                     )
-                } label: {
-                    Image(systemName: "house")
-                    Text("Movies")
-                }
-
-                Tab {
-                    Text("Favorite")
-                } label: {
-                    Image(systemName: "star.fill")
-                    Text("Favorites")
-                }
+                )
+            } label: {
+                Image(systemName: "house")
+                Text(MainFeature.Tab.movies.title)
             }
-            .navigationTitle("Movies")
-            .navigationDestination(item: $store.scope(state: \.movieDetailsState, action: \.movieDetailsAction)) { store in
-                MovieDetailsView(store: store)
+
+            Tab {
+                FavoritesView(
+                    store: store.scope(
+                        state: \.favoritesState,
+                        action: \.favoritesAction
+                    )
+                )
+            } label: {
+                Image(systemName: "star.fill")
+                Text(MainFeature.Tab.favorites.title)
             }
         }
     }

@@ -26,6 +26,8 @@ struct MoviesListFeature {
         var currentPage: Int { currentCategoryState.currentPage }
         var totalPages: Int { currentCategoryState.totalPages }
         var hasMorePages: Bool { currentCategoryState.hasMorePages }
+        
+        @Presents var movieDetailsState: MovieDetailsFeature.State?
     }
     
     struct CategoryState {
@@ -39,13 +41,15 @@ struct MoviesListFeature {
     enum Action {
         case onAppear
         case categoryDidChange(Movie.Category)
-        case loadMovies
+        case loadMovies(_ isLoadingStateIgnored: Bool = false)
+        case refreshMovies
         case loadMoreMovies
         case moviesLoaded(MoviesListResponseDTO)
         case moreMoviesLoaded(MoviesListResponseDTO)
         case displayErrorMessage(String)
         case movieDidTap(Movie)
         case movieAppearedNearEnd(Movie)
+        case movieDetailsAction(PresentationAction<MovieDetailsFeature.Action>)
     }
 
     // MARK: - Dependencies
@@ -55,13 +59,15 @@ struct MoviesListFeature {
     var body: some Reducer<State, Action> {
         Reduce { state, action in
             switch action {
+                case .refreshMovies:
+                    return .send(.loadMovies(true))
                 case .onAppear:
                     guard state.currentCategoryState.movies.isEmpty else { return .none }
-                    return .send(.loadMovies)
+                    return .send(.loadMovies())
                 case let .categoryDidChange(category):
                     state.selectedCategory = category
                     guard state.currentCategoryState.movies.isEmpty else { return .none }
-                    return .send(.loadMovies)
+                    return .send(.loadMovies())
                 case .loadMovies:
                     state.isLoading = true
                     state.currentCategoryState.currentPage = 1
@@ -110,12 +116,15 @@ struct MoviesListFeature {
                     if indexFromEnd <= 5, state.hasMorePages, !state.isLoadingMore {
                         return .send(.loadMoreMovies)
                     }
-                case .movieDidTap(_):
-                    // TODO: Handle movie selection
-                    return .none
+                case let .movieDidTap(movie):
+                    state.movieDetailsState = MovieDetailsFeature.State(movieID: movie.id, isFavorite: false)
+                case .movieDetailsAction(_): break
             }
             
             return .none
+        }
+        .ifLet(\.$movieDetailsState, action: \.movieDetailsAction) {
+            MovieDetailsFeature()
         }
     }
 }

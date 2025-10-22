@@ -21,6 +21,16 @@ extension DependencyValues {
         get { self[GetMovieDetailsUseCaseKey.self] }
         set { self[GetMovieDetailsUseCaseKey.self] = newValue }
     }
+
+    var getFavoritesUseCase: GetFavoritesUseCaseService {
+        get { self[GetFavoritesUseCaseKey.self] }
+        set { self[GetFavoritesUseCaseKey.self] = newValue }
+    }
+
+    var toggleFavoriteUseCase: ToggleFavoriteUseCaseService {
+        get { self[ToggleFavoriteUseCaseKey.self] }
+        set { self[ToggleFavoriteUseCaseKey.self] = newValue }
+    }
         
     var movieRepository: MovieRepositoryService {
         get { self[MovieRepositoryKey.self] }
@@ -50,6 +60,18 @@ extension DependencyValues {
         static let liveValue: GetMovieDetailsUseCaseService = GetMovieDetailsUseCase()
         static let testValue: GetMovieDetailsUseCaseService = GetMovieDetailsUseCase()
         static let previewValue: GetMovieDetailsUseCaseService = GetMovieDetailsUseCase()
+    }
+
+    enum GetFavoritesUseCaseKey: DependencyKey {
+        static let liveValue: GetFavoritesUseCaseService = GetFavoritesUseCase()
+        static let testValue: GetFavoritesUseCaseService = GetFavoritesUseCase()
+        static let previewValue: GetFavoritesUseCaseService = GetFavoritesUseCase()
+    }
+
+    enum ToggleFavoriteUseCaseKey: DependencyKey {
+        static let liveValue: ToggleFavoriteUseCaseService = ToggleFavoriteUseCase()
+        static let testValue: ToggleFavoriteUseCaseService = ToggleFavoriteUseCase()
+        static let previewValue: ToggleFavoriteUseCaseService = ToggleFavoriteUseCase()
     }
 
     // MARK: - Repositories

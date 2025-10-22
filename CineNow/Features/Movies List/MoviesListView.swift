@@ -9,30 +9,39 @@ import ComposableArchitecture
 import SwiftUI
 
 struct MoviesListView: View {
-    let store: StoreOf<MoviesListFeature>
+    @Bindable var store: StoreOf<MoviesListFeature>
 
     var body: some View {
-        VStack(spacing: 0) {
-            categories
-            
-            ZStack {
-                if store.isLoading {
-                    loadingView
-                } else if store.movies.isEmpty {
-                    emptyStateView
-                } else {
-                    moviesScrollView
+        NavigationStack {
+            VStack(spacing: 0) {
+                categories
+                
+                ZStack {
+                    if store.isLoading {
+                        loadingView
+                    } else if store.movies.isEmpty {
+                        emptyStateView
+                    } else {
+                        moviesScrollView
+                    }
                 }
+                .frame(maxHeight: .infinity)
             }
-            .frame(maxHeight: .infinity)
-        }
-        .onAppear {
-            store.send(.onAppear)
+            .navigationTitle("Movies")
+            .navigationDestination(item: $store.scope(state: \.movieDetailsState, action: \.movieDetailsAction)) { store in
+                MovieDetailsView(store: store)
+            }
+            .onAppear {
+                store.send(.onAppear)
+            }
+            .refreshable {
+                store.send(.refreshMovies)
+            }
         }
     }
 }
 
-// MARK: - View Components
+// MARK: -
 
 private extension MoviesListView {
     
@@ -46,8 +55,8 @@ private extension MoviesListView {
             }
         }
         .pickerStyle(.segmented)
-        .padding(.horizontal, 16)
-        .padding(.bottom, 16)
+        .padding(.horizontal)
+        .padding(.bottom)
         .accessibilityLabel("Movie categories")
         .accessibilityHint("Select a category to filter movies")
         .accessibilityValue("Currently selected: \(store.selectedCategory.displayName)")
@@ -112,7 +121,7 @@ private extension MoviesListView {
                     store.send(.movieDidTap(featuredMovie))
                 } label: {
                     FeaturedMovieCardView(movie: featuredMovie)
-                        .padding(.horizontal, 16)
+                        .padding(.horizontal)
                 }
                 .buttonStyle(PlainButtonStyle())
             }

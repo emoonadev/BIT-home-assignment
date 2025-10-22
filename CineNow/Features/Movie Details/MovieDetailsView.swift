@@ -22,8 +22,16 @@ struct MovieDetailsView: View {
             }
         }
         .ignoresSafeArea()
+        .toolbar {
+            ToolbarItem(placement: .navigationBarTrailing) {
+                favoriteButton
+            }
+        }
         .onAppear {
             store.send(.onAppear)
+        }
+        .refreshable {
+            store.send(.refreshData)
         }
     }
 }
@@ -31,6 +39,19 @@ struct MovieDetailsView: View {
 // MARK: -
 
 private extension MovieDetailsView {
+    
+    var favoriteButton: some View {
+        Button {
+            store.send(.toggleFavorite)
+        } label: {
+            Image(systemName: store.isFavorite ? "heart.fill" : "heart")
+                .foregroundColor(store.isFavorite ? .red : .gray)
+                .font(.title2)
+        }
+        .disabled(store.isTogglingFavorite)
+        .accessibilityLabel(store.isFavorite ? "Remove from favorites" : "Add to favorites")
+        .accessibilityHint("Double tap to toggle favorite status")
+    }
     
     var loadingView: some View {
         VStack(spacing: 20) {
@@ -66,7 +87,7 @@ private extension MovieDetailsView {
             }
 
             Button("Try Again") {
-                store.send(.loadMovieDetails)
+                store.send(.loadMovieDetails(true))
             }
             .buttonStyle(.bordered)
         }
@@ -95,7 +116,7 @@ private extension MovieDetailsView {
             .scaledToFill()
             .frame(height: 400)
             .clipped()
-            .shadow(color: .black.opacity(0.3), radius: 10, x: 0, y: 5)
+            .shadow(color: .white.opacity(0.3), radius: 10, x: 0, y: 5)
             .accessibilityElement()
             .accessibilityLabel("Movie poster for \(movie.title)")
     }
@@ -178,7 +199,7 @@ private extension MovieDetailsView {
 
 #Preview {
     NavigationStack {
-        MovieDetailsView(store: Store(initialState: MovieDetailsFeature.State(movieID: 2222)) {
+        MovieDetailsView(store: Store(initialState: MovieDetailsFeature.State(movieID: 2222, isFavorite: false)) {
             MovieDetailsFeature()
                 .dependency(\.getMovieDetailsUseCase, DependencyValues.GetMovieDetailsUseCaseKey.previewValue)
         })

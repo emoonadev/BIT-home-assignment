@@ -15,7 +15,12 @@ protocol APIController {
 extension APIController {
     
     var baseURL: URL { URL(string: "https://api.themoviedb.org/3/")! }
-    var baseHeaders: [String: String] { ["Content-Type": "application/json"] }
+    var baseHeaders: [String: String] {
+        [
+            "Content-Type": "application/json",
+            "accept": "application/json"
+        ]
+    }
 
     func get(_ path: String..., queryItems: URLQueryItem...) -> URLRequest {
         return buildURLRequest(method: "GET", pathComponents: [route] + path, queryItems: queryItems, body: nil)
@@ -55,7 +60,10 @@ extension APIController {
     }
     
     private func encode<T>(_ value: T) throws -> [String: Any] where T: Encodable {
-        let jsonData = try JSONEncoder().encode(value)
+        let encoder = JSONEncoder()
+        encoder.keyEncodingStrategy = .convertToSnakeCase
+        
+        let jsonData = try encoder.encode(value)
         return try JSONSerialization.jsonObject(with: jsonData) as? [String: Any] ?? [:]
     }
 }

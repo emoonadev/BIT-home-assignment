@@ -17,7 +17,7 @@ struct FeaturedMovieCardView: View {
         }
         .background(Color(.secondarySystemBackground))
         .cornerRadius(16)
-        .shadow(color: .black.opacity(0.1), radius: 8, x: 0, y: 4)
+        .shadow(color: .white.opacity(0.1), radius: 8, x: 0, y: 4)
         .accessibilityElement(children: .combine)
         .accessibilityLabel("Featured movie: \(movie.title), rated \(movie.voteAverage.formatted(.number.precision(.fractionLength(1)))) out of 10")
         .accessibilityHint("Double tap to view movie details")
@@ -80,7 +80,7 @@ private extension FeaturedMovieCardView {
                     .accessibilityHidden(true)
             }
         }
-        .padding(16)
+        .padding()
     }
 
     func ratingView(_ rating: Double, voteCount: Int) -> some View {

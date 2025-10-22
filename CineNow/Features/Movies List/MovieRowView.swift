@@ -17,7 +17,7 @@ struct MovieRowView: View {
         }
         .background(Color(.secondarySystemBackground))
         .cornerRadius(12)
-        .shadow(color: .black.opacity(0.08), radius: 6, x: 0, y: 3)
+        .shadow(color: .white.opacity(0.08), radius: 6, x: 0, y: 3)
         .accessibilityElement(children: .combine)
         .accessibilityLabel("\(movie.title), rated \(movie.voteAverage.formatted(.number.precision(.fractionLength(1)))) out of 10")
         .accessibilityHint("Double tap to view movie details")
