@@ -15,6 +15,8 @@ struct FavoritesFeature {
         var favorites: [Movie] = []
         var isLoading = false
         var errorMessage: String?
+        
+        @Presents var movieDetailsState: MovieDetailsFeature.State?
     }
 
     enum Action {
@@ -24,6 +26,7 @@ struct FavoritesFeature {
         case displayErrorMessage(String)
         case movieDidTap(Movie)
         case refreshFavorites
+        case movieDetailsAction(PresentationAction<MovieDetailsFeature.Action>)
     }
 
     // MARK: - Dependencies
@@ -34,7 +37,6 @@ struct FavoritesFeature {
         Reduce { state, action in
             switch action {
             case .onAppear:
-                guard state.favorites.isEmpty else { return .none }
                 return .send(.loadFavorites)
             case .loadFavorites, .refreshFavorites:
                 state.isLoading = true
@@ -54,12 +56,16 @@ struct FavoritesFeature {
             case let .displayErrorMessage(message):
                 state.errorMessage = message
                 state.isLoading = false
-            case .movieDidTap:
-                // Handled by parent
-                return .none
+            case let .movieDidTap(movie):
+                state.movieDetailsState = MovieDetailsFeature.State(movieID: movie.id)
+            case .movieDetailsAction:
+                break
             }
 
             return .none
+        }
+        .ifLet(\.$movieDetailsState, action: \.movieDetailsAction) {
+            MovieDetailsFeature()
         }
     }
 }

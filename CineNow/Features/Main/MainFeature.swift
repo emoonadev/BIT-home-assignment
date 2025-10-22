@@ -15,18 +15,13 @@ struct MainFeature {
     struct State {
         var moviesListState = MoviesListFeature.State()
         var favoritesState = FavoritesFeature.State()
-        var selectedTab: Tab = .movies
         
-        var navigationTitle: String { selectedTab.title }
-
         @Presents var movieDetailsState: MovieDetailsFeature.State?
     }
 
     enum Action {
         case moviesListAction(MoviesListFeature.Action)
         case favoritesAction(FavoritesFeature.Action)
-        case movieDetailsAction(PresentationAction<MovieDetailsFeature.Action>)
-        case tabSelected(Tab)
     }
 
     var body: some Reducer<State, Action> {
@@ -40,23 +35,15 @@ struct MainFeature {
 
         Reduce { state, action in
             switch action {
-                case let .tabSelected(tab):
-                    state.selectedTab = tab
-                    
                 case let .moviesListAction(.movieDidTap(movie)):
                     state.movieDetailsState = MovieDetailsFeature.State(movieID: movie.id)
-                    
                 case let .favoritesAction(.movieDidTap(movie)):
                     state.movieDetailsState = MovieDetailsFeature.State(movieID: movie.id)
-                    
-                case .moviesListAction, .favoritesAction, .movieDetailsAction:
+                case .moviesListAction, .favoritesAction:
                     break
             }
             
             return .none
-        }
-        .ifLet(\.$movieDetailsState, action: \.movieDetailsAction) {
-            MovieDetailsFeature()
         }
     }
 }

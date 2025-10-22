@@ -26,6 +26,8 @@ struct MoviesListFeature {
         var currentPage: Int { currentCategoryState.currentPage }
         var totalPages: Int { currentCategoryState.totalPages }
         var hasMorePages: Bool { currentCategoryState.hasMorePages }
+        
+        @Presents var movieDetailsState: MovieDetailsFeature.State?
     }
     
     struct CategoryState {
@@ -46,6 +48,7 @@ struct MoviesListFeature {
         case displayErrorMessage(String)
         case movieDidTap(Movie)
         case movieAppearedNearEnd(Movie)
+        case movieDetailsAction(PresentationAction<MovieDetailsFeature.Action>)
     }
 
     // MARK: - Dependencies
@@ -110,12 +113,15 @@ struct MoviesListFeature {
                     if indexFromEnd <= 5, state.hasMorePages, !state.isLoadingMore {
                         return .send(.loadMoreMovies)
                     }
-                case .movieDidTap(_):
-                    // TODO: Handle movie selection
-                    return .none
+                case let .movieDidTap(movie):
+                    state.movieDetailsState = MovieDetailsFeature.State(movieID: movie.id)
+                case .movieDetailsAction(_): break
             }
             
             return .none
+        }
+        .ifLet(\.$movieDetailsState, action: \.movieDetailsAction) {
+            MovieDetailsFeature()
         }
     }
 }

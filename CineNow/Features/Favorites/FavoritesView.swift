@@ -9,24 +9,26 @@ import ComposableArchitecture
 import SwiftUI
 
 struct FavoritesView: View {
-    let store: StoreOf<FavoritesFeature>
+    @Bindable var store: StoreOf<FavoritesFeature>
 
     var body: some View {
-        ZStack {
-            if store.isLoading {
-                loadingView
-            } else if store.favorites.isEmpty {
-                emptyStateView
-            } else {
-                favoritesContent
+        NavigationStack {
+            ZStack {
+                if store.isLoading {
+                    loadingView
+                } else if store.favorites.isEmpty {
+                    emptyStateView
+                } else {
+                    favoritesContent
+                }
             }
-        }
-        .navigationTitle("Favorites")
-        .onAppear {
-            store.send(.onAppear)
-        }
-        .refreshable {
-            store.send(.refreshFavorites)
+            .navigationTitle("Favorites")
+            .navigationDestination(item: $store.scope(state: \.movieDetailsState, action: \.movieDetailsAction)) { store in
+                MovieDetailsView(store: store)
+            }
+            .onAppear {
+                store.send(.onAppear)
+            }
         }
     }
 }
@@ -92,10 +94,8 @@ private extension FavoritesView {
 // MARK: - Preview
 
 #Preview {
-    NavigationStack {
-        FavoritesView(store: Store(initialState: FavoritesFeature.State()) {
-            FavoritesFeature()
-                .dependency(\.getFavoritesUseCase, DependencyValues.GetFavoritesUseCaseKey.previewValue)
-        })
-    }
+    FavoritesView(store: Store(initialState: FavoritesFeature.State()) {
+        FavoritesFeature()
+            .dependency(\.getFavoritesUseCase, DependencyValues.GetFavoritesUseCaseKey.previewValue)
+    })
 }
