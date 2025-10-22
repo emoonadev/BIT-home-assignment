@@ -12,6 +12,7 @@ protocol MovieRepositoryService {
     func fetchUpcoming(at page: Int) async throws -> MoviesListResponseDTO
     func fetchTopRated(at page: Int) async throws -> MoviesListResponseDTO
     func fetchNowPlaying(at page: Int) async throws -> MoviesListResponseDTO
+    func fetchDetails(id: Int) async throws -> Movie
 }
 
 struct MovieRepository: MovieRepositoryService {
@@ -32,6 +33,10 @@ extension MovieRepository {
     
     func fetchNowPlaying(at page: Int) async throws -> MoviesListResponseDTO {
         try await remoteDataSource.fetchNowPlaying(at: page)
+    }
+    
+    func fetchDetails(id: Int) async throws -> Movie {
+        try await remoteDataSource.fetchDetails(id: id)
     }
     
 }

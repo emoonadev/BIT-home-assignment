@@ -16,6 +16,11 @@ extension DependencyValues {
         get { self[GetMoviesUseCaseKey.self] }
         set { self[GetMoviesUseCaseKey.self] = newValue }
     }
+    
+    var getMovieDetailsUseCase: GetMovieDetailsUseCaseService {
+        get { self[GetMovieDetailsUseCaseKey.self] }
+        set { self[GetMovieDetailsUseCaseKey.self] = newValue }
+    }
         
     var movieRepository: MovieRepositoryService {
         get { self[MovieRepositoryKey.self] }
@@ -39,6 +44,12 @@ extension DependencyValues {
         static let liveValue: GetMoviesUseCaseService = GetMoviesUseCase()
         static let testValue: GetMoviesUseCaseService = GetMoviesUseCase()
         static let previewValue: GetMoviesUseCaseService = GetMoviesUseCase()
+    }
+
+    enum GetMovieDetailsUseCaseKey: DependencyKey {
+        static let liveValue: GetMovieDetailsUseCaseService = GetMovieDetailsUseCase()
+        static let testValue: GetMovieDetailsUseCaseService = GetMovieDetailsUseCase()
+        static let previewValue: GetMovieDetailsUseCaseService = GetMovieDetailsUseCase()
     }
 
     // MARK: - Repositories
