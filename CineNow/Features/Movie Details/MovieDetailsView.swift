@@ -126,7 +126,7 @@ private extension MovieDetailsView {
             Text(movie.title)
                 .font(.largeTitle)
                 .fontWeight(.bold)
-                .multilineTextAlignment(.leading)
+                .multilineTextAlignment(.center)
 
             HStack(spacing: 24) {
                 releaseYearInfo(movie)
