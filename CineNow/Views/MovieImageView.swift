@@ -29,6 +29,7 @@ struct MovieImageView: View {
             }
             .retry(maxCount: 2, interval: .seconds(1))
             .resizable()
+            .scaledToFill()
             .clipped()
     }
 

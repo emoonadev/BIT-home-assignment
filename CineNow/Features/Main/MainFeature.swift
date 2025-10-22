@@ -30,14 +30,3 @@ struct MainFeature {
         }
     }
 }
-
-// MARK: -
-
-extension MainFeature {
-    
-    enum Tab: Int, CaseIterable {
-        case movies
-        case favorites
-    }
-    
-}

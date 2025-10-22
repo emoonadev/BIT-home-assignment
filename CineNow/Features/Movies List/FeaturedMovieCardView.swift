@@ -14,6 +14,7 @@ struct FeaturedMovieCardView: View {
         VStack(spacing: 0) {
             MovieImageView(imageURL: movie.posterImage)
                 .frame(height: 200)
+                .clipped()
                 .overlay {
                     VStack {
                         Image(systemName: "play.circle.fill")
