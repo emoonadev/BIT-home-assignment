@@ -6,6 +6,7 @@
 //
 
 struct MoviesListResponseDTO: Codable {
-    let page: Int
     let results: [Movie]
+    let page: Int
+    let totalPages: Int
 }

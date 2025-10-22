@@ -19,7 +19,7 @@ struct FeaturedMovieCardView: View {
         .cornerRadius(16)
         .shadow(color: .black.opacity(0.1), radius: 8, x: 0, y: 4)
         .accessibilityElement(children: .combine)
-        .accessibilityLabel("Featured movie: \(movie.name), rated \(movie.voteAverage.formatted(.number.precision(.fractionLength(1)))) out of 10")
+        .accessibilityLabel("Featured movie: \(movie.title), rated \(movie.voteAverage.formatted(.number.precision(.fractionLength(1)))) out of 10")
         .accessibilityHint("Double tap to view movie details")
     }
 }
@@ -49,7 +49,7 @@ private extension FeaturedMovieCardView {
         VStack(alignment: .leading, spacing: 12) {
             HStack {
                 VStack(alignment: .leading, spacing: 6) {
-                    Text(movie.name)
+                    Text(movie.title)
                         .font(.title3)
                         .fontWeight(.bold)
                         .foregroundColor(.primary)
@@ -68,7 +68,7 @@ private extension FeaturedMovieCardView {
                 .multilineTextAlignment(.leading)
             
             HStack {
-                Text(movie.createdAt.formatted(date: .abbreviated, time: .omitted))
+                Text(movie.releaseDate.formatted(date: .abbreviated, time: .omitted))
                     .font(.caption)
                     .foregroundColor(.secondary)
 

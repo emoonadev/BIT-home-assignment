@@ -9,9 +9,9 @@ import ComposableArchitecture
 import Foundation
 
 protocol MovieRemoteDataSourceService {
-    func fetchUpcoming(at page: Int) async throws -> [Movie]
-    func fetchTopRated(at page: Int) async throws -> [Movie]
-    func fetchNowPlaying(at page: Int) async throws -> [Movie]
+    func fetchUpcoming(at page: Int) async throws -> MoviesListResponseDTO
+    func fetchTopRated(at page: Int) async throws -> MoviesListResponseDTO
+    func fetchNowPlaying(at page: Int) async throws -> MoviesListResponseDTO
     func fetchDetails(id: Int) async throws -> Movie
 }
 
@@ -24,15 +24,15 @@ struct MovieRemoteDataSource: RemoteDataSource, MovieRemoteDataSourceService {
 
 extension MovieRemoteDataSource {
     
-    func fetchUpcoming(at page: Int) async throws -> [Movie] {
+    func fetchUpcoming(at page: Int) async throws -> MoviesListResponseDTO {
         try await fetchList(route: controller.getUpcoming(page))
     }
     
-    func fetchTopRated(at page: Int) async throws -> [Movie] {
+    func fetchTopRated(at page: Int) async throws -> MoviesListResponseDTO {
         try await fetchList(route: controller.getTopRated(page))
     }
     
-    func fetchNowPlaying(at page: Int) async throws -> [Movie] {
+    func fetchNowPlaying(at page: Int) async throws -> MoviesListResponseDTO {
         try await fetchList(route: controller.getNowPlaying(page))
     }
 
@@ -45,9 +45,9 @@ extension MovieRemoteDataSource {
 
 private extension MovieRemoteDataSource {
     
-    func fetchList(route: APIRoute) async throws -> [Movie] {
+    func fetchList(route: APIRoute) async throws -> MoviesListResponseDTO {
         let response: MoviesListResponseDTO = try await api.perform(route)
-        return response.results
+        return response
     }
     
 }

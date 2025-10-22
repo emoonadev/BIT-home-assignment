@@ -9,7 +9,7 @@ import ComposableArchitecture
 import Foundation
 
 protocol GetMoviesUseCaseService {
-    func getList(for category: Movie.Category) async throws -> [Movie]
+    func getList(for category: Movie.Category, page: Int) async throws -> MoviesListResponseDTO
 }
 
 struct GetMoviesUseCase: GetMoviesUseCaseService {
@@ -20,11 +20,14 @@ struct GetMoviesUseCase: GetMoviesUseCaseService {
 
 extension GetMoviesUseCase {
     
-    func getList(for category: Movie.Category) async throws -> [Movie] {
+    func getList(for category: Movie.Category, page: Int) async throws -> MoviesListResponseDTO {
         switch category {
-            case .upcoming: try await movieRepository.fetchUpcoming(at: 1)
-            case .topRated: try await movieRepository.fetchTopRated(at: 1)
-            case .nowPlaying: try await movieRepository.fetchNowPlaying(at: 1)
+            case .upcoming: 
+                return try await movieRepository.fetchUpcoming(at: page)
+            case .topRated: 
+                return try await movieRepository.fetchTopRated(at: page)
+            case .nowPlaying: 
+                return try await movieRepository.fetchNowPlaying(at: page)
         }
     }
 }

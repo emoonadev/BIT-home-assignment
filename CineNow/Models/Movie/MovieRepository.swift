@@ -9,9 +9,9 @@ import Foundation
 import ComposableArchitecture
 
 protocol MovieRepositoryService {
-    func fetchUpcoming(at page: Int) async throws -> [Movie]
-    func fetchTopRated(at page: Int) async throws -> [Movie]
-    func fetchNowPlaying(at page: Int) async throws -> [Movie]
+    func fetchUpcoming(at page: Int) async throws -> MoviesListResponseDTO
+    func fetchTopRated(at page: Int) async throws -> MoviesListResponseDTO
+    func fetchNowPlaying(at page: Int) async throws -> MoviesListResponseDTO
 }
 
 struct MovieRepository: MovieRepositoryService {
@@ -22,15 +22,15 @@ struct MovieRepository: MovieRepositoryService {
 
 extension MovieRepository {
     
-    func fetchUpcoming(at page: Int) async throws -> [Movie] {
+    func fetchUpcoming(at page: Int) async throws -> MoviesListResponseDTO {
         try await remoteDataSource.fetchUpcoming(at: page)
     }
     
-    func fetchTopRated(at page: Int) async throws -> [Movie] {
+    func fetchTopRated(at page: Int) async throws -> MoviesListResponseDTO {
         try await remoteDataSource.fetchTopRated(at: page)
     }
     
-    func fetchNowPlaying(at page: Int) async throws -> [Movie] {
+    func fetchNowPlaying(at page: Int) async throws -> MoviesListResponseDTO {
         try await remoteDataSource.fetchNowPlaying(at: page)
     }
     

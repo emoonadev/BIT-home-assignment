@@ -37,7 +37,7 @@ extension GetMoviesUseCaseTests {
         
         let firstMovie = movies.first!
         #expect(firstMovie.id == 76600)
-        #expect(firstMovie.name == "Avatar: The Way of Water")
+        #expect(firstMovie.title == "Avatar: The Way of Water")
         #expect(firstMovie.voteAverage == 7.7)
     }
     
@@ -54,7 +54,7 @@ extension GetMoviesUseCaseTests {
     func featuredMoviesContainExpectedTitle(expectedTitle: String) async throws {
         let movies = try await sut.getFeatured()
         
-        let movieNames = movies.map(\.name)
+        let movieNames = movies.map(\.title)
         #expect(movieNames.contains(expectedTitle), "Should contain movie: \(expectedTitle)")
     }
     

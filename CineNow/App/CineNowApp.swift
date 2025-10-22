@@ -11,7 +11,7 @@ import ComposableArchitecture
 
 @main
 struct CineNowApp: App {
-    let store = Store<MainFeature.State, MainFeature.Action>.withContext(context: .test, initialState: MainFeature.State()) {
+    let store = Store<MainFeature.State, MainFeature.Action>.withContext(initialState: MainFeature.State()) {
         MainFeature()
     }
     

@@ -34,7 +34,7 @@ private extension NetworkManager {
     
     func setupDecoder() {
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        dateFormatter.dateFormat = "yyyy-MM-dd"
         decoder.dateDecodingStrategy = .formatted(dateFormatter)
         decoder.keyDecodingStrategy = .convertFromSnakeCase
     }
@@ -46,7 +46,11 @@ private extension NetworkManager {
 extension NetworkManager {
     
     func perform<Model: Codable>(_ route: APIController) async throws -> Model {
-        let (data, _) = try await session.data(for: route.urlRequest)
+        var request = route.urlRequest
+        
+        request.setValue("Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJlN2UyMzllMjYxZDBhYTc2NzllNWMwYWU1NDQ1YWQ3ZSIsIm5iZiI6MTc2MTEzMDU4OC40Miwic3ViIjoiNjhmOGI4NWMxNTUyZTlhNDkyZDNiYWJjIiwic2NvcGVzIjpbImFwaV9yZWFkIl0sInZlcnNpb24iOjF9._0NaMcrgD3AkyZ8NoJA0MVn50fTSVGJI42-0cksNsYo", forHTTPHeaderField: "Authorization")
+        
+        let (data, _) = try await session.data(for: request)
         return try decoder.decode(Model.self, from: data)
     }
     

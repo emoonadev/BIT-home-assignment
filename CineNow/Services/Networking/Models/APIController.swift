@@ -14,7 +14,7 @@ protocol APIController {
 
 extension APIController {
     
-    var baseURL: URL { URL(string: "baseURL")! }
+    var baseURL: URL { URL(string: "https://api.themoviedb.org/3/")! }
     var baseHeaders: [String: String] { ["Content-Type": "application/json"] }
 
     func get(_ path: String..., queryItems: URLQueryItem...) -> URLRequest {

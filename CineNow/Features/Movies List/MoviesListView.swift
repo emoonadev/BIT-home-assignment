@@ -91,14 +91,20 @@ private extension MoviesListView {
     }
 
     var moviesScrollView: some View {
-        ScrollView(.vertical, showsIndicators: false) {
-            LazyVStack(spacing: 32) {
-                featuredMovieCard
-
-                upcomingMoviesGrid
-                    .padding(.horizontal, 16)
+        ScrollViewReader { proxy in
+            ScrollView(.vertical, showsIndicators: false) {
+                LazyVStack(spacing: 32) {
+                    featuredMovieCard
+                    
+                    upcomingMoviesGrid(proxy)
+                        .padding(.horizontal)
+                    
+                    if store.isLoadingMore {
+                        loadingMoreIndicator
+                    }
+                }
+                .padding(.top)
             }
-            .padding(.top, 16)
         }
     }
 
@@ -116,10 +122,10 @@ private extension MoviesListView {
         }
     }
 
-    var upcomingMoviesGrid: some View {
+    func upcomingMoviesGrid(_ proxy: ScrollViewProxy) -> some View {
         LazyVGrid(columns: [
-            GridItem(.flexible(), spacing: 16),
-            GridItem(.flexible(), spacing: 16),
+            GridItem(.flexible()),
+            GridItem(.flexible()),
         ], spacing: 20) {
             ForEach(store.movies.dropFirst(), id: \.id) { movie in
                 Button {
@@ -127,9 +133,30 @@ private extension MoviesListView {
                 } label: {
                     MovieRowView(movie: movie)
                 }
+                .id(movie.id)
                 .frame(maxWidth: .infinity)
+                .onAppear {
+                    store.send(.movieAppearedNearEnd(movie))
+                }
             }
         }
+        .onChange(of: store.selectedCategory) { _, _ in
+            proxy.scrollTo(store.currentCategoryState.currentMovieID, anchor: .bottom)
+        }
+    }
+    
+    var loadingMoreIndicator: some View {
+        HStack(spacing: 12) {
+            ProgressView()
+                .scaleEffect(0.8)
+            
+            Text("Loading more movies...")
+                .font(.caption)
+                .foregroundColor(.secondary)
+        }
+        .padding()
+        .accessibilityElement(children: .combine)
+        .accessibilityLabel("Loading more movies")
     }
 }
 
