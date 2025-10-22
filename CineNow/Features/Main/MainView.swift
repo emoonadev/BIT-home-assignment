@@ -14,8 +14,11 @@ struct MainView: View {
 
     var body: some View {
         NavigationStack {
-            TabView {
-                Tab {
+            TabView(selection: Binding(
+                get: { store.selectedTab },
+                set: { store.send(.tabSelected($0)) }
+            )) {
+                Tab(value: MainFeature.Tab.movies) {
                     MoviesListView(
                         store: store.scope(
                             state: \.moviesListState,
@@ -24,17 +27,22 @@ struct MainView: View {
                     )
                 } label: {
                     Image(systemName: "house")
-                    Text("Movies")
+                    Text(MainFeature.Tab.movies.title)
                 }
 
-                Tab {
-                    Text("Favorite")
+                Tab(value: MainFeature.Tab.favorites) {
+                    FavoritesView(
+                        store: store.scope(
+                            state: \.favoritesState,
+                            action: \.favoritesAction
+                        )
+                    )
                 } label: {
                     Image(systemName: "star.fill")
-                    Text("Favorites")
+                    Text(MainFeature.Tab.favorites.title)
                 }
             }
-            .navigationTitle("Movies")
+            .navigationTitle(store.navigationTitle)
             .navigationDestination(item: $store.scope(state: \.movieDetailsState, action: \.movieDetailsAction)) { store in
                 MovieDetailsView(store: store)
             }

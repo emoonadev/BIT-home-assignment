@@ -183,4 +183,15 @@ struct MockMovieRemoteDataSource: MovieRemoteDataSourceService {
             posterPath: "/vZloFAK7NmvMGKE7VkF5UHaz0I.jpg"
         )
     }
+    
+    func fetchFavorites(at page: Int) async throws -> MoviesListResponseDTO {
+        MoviesListResponseDTO(results: [], page: 1, totalPages: 1)
+    }
+
+    func addToFavorites(_ movieID: Int) async throws {
+    }
+
+    func removeFromFavorites(_ movieID: Int) async throws {
+    }
+    
 }

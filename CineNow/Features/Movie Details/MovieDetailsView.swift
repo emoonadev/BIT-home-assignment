@@ -22,6 +22,11 @@ struct MovieDetailsView: View {
             }
         }
         .ignoresSafeArea()
+        .toolbar {
+            ToolbarItem(placement: .navigationBarTrailing) {
+                favoriteButton
+            }
+        }
         .onAppear {
             store.send(.onAppear)
         }
@@ -31,6 +36,19 @@ struct MovieDetailsView: View {
 // MARK: -
 
 private extension MovieDetailsView {
+    
+    var favoriteButton: some View {
+        Button {
+            store.send(.toggleFavorite)
+        } label: {
+            Image(systemName: store.isFavorite ? "heart.fill" : "heart")
+                .foregroundColor(store.isFavorite ? .red : .gray)
+                .font(.title2)
+        }
+        .disabled(store.isTogglingFavorite)
+        .accessibilityLabel(store.isFavorite ? "Remove from favorites" : "Add to favorites")
+        .accessibilityHint("Double tap to toggle favorite status")
+    }
     
     var loadingView: some View {
         VStack(spacing: 20) {

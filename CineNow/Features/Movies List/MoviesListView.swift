@@ -32,7 +32,7 @@ struct MoviesListView: View {
     }
 }
 
-// MARK: - View Components
+// MARK: -
 
 private extension MoviesListView {
     
