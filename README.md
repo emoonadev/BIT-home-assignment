@@ -37,9 +37,9 @@ This structure allows easy testing, better readability, and smooth teamwork in a
 
 ## If I Had More Time?
 
-- Implement the **Play Trailer** feature.
-- Add more **unit tests**
-
+- Implement the **Play Trailer** feature.  
+- Add more **unit tests**.  
+- Use **localizations** instead of hardcoded strings. Same for **Access Token** and **API Key**.
 ---
 
 ## Tests
