@@ -172,16 +172,49 @@ struct MockMovieRemoteDataSource: MovieRemoteDataSourceService {
         )
     }
 
-    func fetchDetails(id _: Int) async throws -> Movie {
-        Movie(
-            id: 603_692,
-            overview: "With the price on his head ever increasing, John Wick uncovers a path to defeating The High Table. But before he can earn his freedom, Wick must face off against a new enemy with powerful alliances across the globe and forces that turn old friends into foes.",
-            releaseDate: DateFormatter.tmdbFormatter.date(from: "2023-03-22")!,
-            title: "John Wick: Chapter 4",
-            voteAverage: 8.0,
-            voteCount: 1211,
-            posterPath: "/vZloFAK7NmvMGKE7VkF5UHaz0I.jpg"
-        )
+    func fetchDetails(id movieID: Int) async throws -> Movie {
+        switch movieID {
+            case 76600:
+                Movie(
+                    id: 76600,
+                    overview: "Set more than a decade after the events of the first film, learn the story of the Sully family (Jake, Neytiri, and their kids), the trouble that follows them, the lengths they go to keep each other safe, the battles they fight to stay alive, and the tragedies they endure.",
+                    releaseDate: DateFormatter.tmdbFormatter.date(from: "2022-12-14")!,
+                    title: "Avatar: The Way of Water",
+                    voteAverage: 7.7,
+                    voteCount: 8932,
+                    posterPath: "/t6HIqrRAclMCA60NsSmeqe9RmNV.jpg"
+                )
+            case 980078:
+                Movie(
+                    id: 980078,
+                    overview: "In the wake of King Edward's death, Uhtred of Bebbanburg and his comrades adventure across a fractured kingdom in the hopes of uniting England at last.",
+                    releaseDate: DateFormatter.tmdbFormatter.date(from: "2023-04-14")!,
+                    title: "The Last Kingdom: Seven Kings Must Die",
+                    voteAverage: 7.3,
+                    voteCount: 456,
+                    posterPath: "/ym1dxyOk4jFcSl4Q2zmRrA5BEEN.jpg"
+                )
+            case 677179:
+                Movie(
+                    id: 677179,
+                    overview: "After dominating the boxing world, Adonis Creed has been thriving in both his career and family life. When a childhood friend and former boxing prodigy, Damian Anderson, resurfaces after serving a long sentence in prison, he is eager to prove that he deserves his shot in the ring.",
+                    releaseDate: DateFormatter.tmdbFormatter.date(from: "2023-03-01")!,
+                    title: "Creed III",
+                    voteAverage: 7.2,
+                    voteCount: 1192,
+                    posterPath: "/cvsXj3I9Q2iyyIo95AecSd1tad7.jpg"
+                )
+            default:
+                Movie(
+                    id: movieID,
+                    overview: "Mock movie overview for testing purposes.",
+                    releaseDate: DateFormatter.tmdbFormatter.date(from: "2023-01-01")!,
+                    title: "Mock Movie Title",
+                    voteAverage: 6.0,
+                    voteCount: 100,
+                    posterPath: "/mockPosterPath.jpg"
+                )
+        }
     }
     
     func fetchFavorites(at page: Int) async throws -> MoviesListResponseDTO {

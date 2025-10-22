@@ -41,9 +41,16 @@ private extension MovieRowView {
                     .font(.caption)
                     .foregroundColor(.yellow)
 
-                Text(movie.voteAverage.formatted(.number.precision(.fractionLength(1))))
-                    .font(.caption)
-                    .fontWeight(.medium)
+                HStack(spacing: 2) {
+                    Text(movie.voteAverage.formatted(.number.precision(.fractionLength(1))))
+                        .foregroundColor(.primary)
+                        .font(.caption)
+                        .fontWeight(.medium)
+                    
+                    Text("/10")
+                        .foregroundColor(.secondary)
+                        .font(.caption)
+                }
             }
             .accessibilityElement(children: .combine)
             .accessibilityLabel("Rating \(movie.voteAverage.formatted(.number.precision(.fractionLength(1)))) out of 10")

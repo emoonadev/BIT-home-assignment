@@ -84,17 +84,25 @@ private extension FeaturedMovieCardView {
     }
 
     func ratingView(_ rating: Double, voteCount: Int) -> some View {
-        HStack(spacing: 4) {
+        let filledStars = Int(round((rating / 10) * 5))
+        
+        return HStack(spacing: 4) {
             ForEach(0..<5) { index in
-                Image(systemName: index < Int((rating / 10) * 5) ? "star.fill" : "star")
+                Image(systemName: index < filledStars ? "star.fill" : "star")
                     .font(.caption)
                     .foregroundColor(.yellow)
             }
 
-            Text(rating.formatted(.number.precision(.fractionLength(1))))
-                .font(.caption)
-                .fontWeight(.medium)
-                .foregroundColor(.primary)
+            HStack(spacing: 2) {
+                Text(rating.formatted(.number.precision(.fractionLength(1))))
+                    .font(.caption)
+                    .fontWeight(.medium)
+                    .foregroundColor(.primary)
+                
+                Text("/10")
+                    .foregroundColor(.secondary)
+                    .font(.caption)
+            }
 
             Text("(\(voteCount))")
                 .font(.caption2)

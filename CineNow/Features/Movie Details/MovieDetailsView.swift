@@ -126,7 +126,7 @@ private extension MovieDetailsView {
             Text(movie.title)
                 .font(.largeTitle)
                 .fontWeight(.bold)
-                .multilineTextAlignment(.center)
+                .multilineTextAlignment(.leading)
 
             HStack(spacing: 24) {
                 releaseYearInfo(movie)
@@ -169,9 +169,13 @@ private extension MovieDetailsView {
                     .font(.title2)
                     .fontWeight(.semibold)
 
-                Text("(\(movie.voteCount))")
-                    .font(.caption)
-                    .foregroundColor(.secondary)
+                VStack {
+                    Spacer()
+                    Text("(\(movie.voteCount))")
+                        .font(.caption)
+                        .foregroundColor(.secondary)
+                        .padding(.bottom, 4)
+                }
             }
         }
         .accessibilityElement(children: .combine)
@@ -185,7 +189,7 @@ private extension MovieDetailsView {
                 .fontWeight(.semibold)
 
             Text(movie.overview)
-                .font(.body)
+                .font(.callout)
                 .lineLimit(nil)
                 .fixedSize(horizontal: false, vertical: true)
         }
