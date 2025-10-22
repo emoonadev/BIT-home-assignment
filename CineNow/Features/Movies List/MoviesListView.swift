@@ -14,8 +14,6 @@ struct MoviesListView: View {
     var body: some View {
         NavigationStack {
             VStack(spacing: 0) {
-                categories
-                
                 ZStack {
                     if store.isLoading {
                         loadingView
@@ -28,6 +26,12 @@ struct MoviesListView: View {
                 .frame(maxHeight: .infinity)
             }
             .navigationTitle("Movies")
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .principal) {
+                    categoryPicker
+                }
+            }
             .navigationDestination(item: $store.scope(state: \.movieDetailsState, action: \.movieDetailsAction)) { store in
                 MovieDetailsView(store: store)
             }
@@ -45,7 +49,7 @@ struct MoviesListView: View {
 
 private extension MoviesListView {
     
-    var categories: some View {
+    var categoryPicker: some View {
         Picker("Movie Category", selection: Binding(
             get: { store.selectedCategory },
             set: { store.send(.categoryDidChange($0)) }
@@ -55,8 +59,6 @@ private extension MoviesListView {
             }
         }
         .pickerStyle(.segmented)
-        .padding(.horizontal)
-        .padding(.bottom)
         .accessibilityLabel("Movie categories")
         .accessibilityHint("Select a category to filter movies")
         .accessibilityValue("Currently selected: \(store.selectedCategory.displayName)")
