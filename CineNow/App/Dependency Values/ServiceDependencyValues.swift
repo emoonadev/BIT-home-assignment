@@ -27,6 +27,8 @@ extension DependencyValues {
 
     fileprivate enum NetworkManagerKey: DependencyKey {
         static let liveValue: NetworkManagerService = NetworkManager()
+        static let testValue: NetworkManagerService = NetworkManager()
+        static let previewValue: NetworkManagerService = NetworkManager()
     }
     
 }

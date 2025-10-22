@@ -37,6 +37,7 @@ extension DependencyValues {
 
     enum GetMoviesUseCaseKey: DependencyKey {
         static let liveValue: GetMoviesUseCaseService = GetMoviesUseCase()
+        static let testValue: GetMoviesUseCaseService = GetMoviesUseCase()
         static let previewValue: GetMoviesUseCaseService = GetMoviesUseCase()
     }
 
@@ -44,12 +45,15 @@ extension DependencyValues {
 
     fileprivate enum MovieRepositoryKey: DependencyKey {
         static let liveValue: MovieRepositoryService = MovieRepository()
+        static let testValue: MovieRepositoryService = MovieRepository()
+        static let previewValue: MovieRepositoryService = MovieRepository()
     }
 
     // MARK: - RemoteDataSources
 
     fileprivate enum MovieRemoteDataSourceKey: DependencyKey {
         static let liveValue: MovieRemoteDataSourceService = MovieRemoteDataSource()
+        static let testValue: MovieRemoteDataSourceService = MockMovieRemoteDataSource()
         static let previewValue: MovieRemoteDataSourceService = MockMovieRemoteDataSource()
     }
     

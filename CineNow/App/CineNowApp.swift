@@ -7,9 +7,13 @@
 
 import SwiftUI
 import SwiftData
+import ComposableArchitecture
 
 @main
 struct CineNowApp: App {
+    let store = Store<MainFeature.State, MainFeature.Action>.withContext(context: .test, initialState: MainFeature.State()) {
+        MainFeature()
+    }
     
     init() {
         setup()
@@ -30,7 +34,7 @@ struct CineNowApp: App {
 
     var body: some Scene {
         WindowGroup {
-            MainView()
+            MainView(store: store)
         }
         .modelContainer(sharedModelContainer)
     }
