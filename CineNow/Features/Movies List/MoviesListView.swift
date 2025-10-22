@@ -12,7 +12,7 @@ struct MoviesListView: View {
     let store: StoreOf<MoviesListFeature>
 
     var body: some View {
-        NavigationView {
+        NavigationStack {
             ZStack {
                 if store.isLoading {
                     loadingView
@@ -42,6 +42,8 @@ private extension MoviesListView {
                 .font(.headline)
                 .foregroundColor(.secondary)
         }
+        .accessibilityElement(children: .combine)
+        .accessibilityLabel("Loading movies")
     }
 
     var emptyStateView: some View {
@@ -49,8 +51,9 @@ private extension MoviesListView {
             Image(systemName: "tv")
                 .font(.system(size: 64))
                 .foregroundColor(.gray)
+                .accessibilityHidden(true)
 
-            VStack(spacing: 8) {
+            VStack {
                 Text("No Movies Available")
                     .font(.title2)
                     .fontWeight(.semibold)
@@ -61,20 +64,22 @@ private extension MoviesListView {
             }
         }
         .padding()
+        .accessibilityElement(children: .combine)
+        .accessibilityLabel("No movies available. Check back later for new releases")
     }
 
     var moviesScrollView: some View {
         ScrollView(.vertical, showsIndicators: false) {
-            LazyVStack(spacing: 24) {
+            LazyVStack(spacing: 32) {
                 featuredMovieCard
 
                 VStack(alignment: .leading, spacing: 16) {
                     sectionHeader("Popular Movies")
                     popularMoviesGrid
                 }
-                .padding(.horizontal)
+                .padding(.horizontal, 16)
             }
-            .padding(.top)
+            .padding(.top, 16)
         }
     }
 
@@ -85,8 +90,9 @@ private extension MoviesListView {
                     store.send(.movieDidTap(featuredMovie))
                 } label: {
                     FeaturedMovieCardView(movie: featuredMovie)
-                        .padding(.horizontal)
+                        .padding(.horizontal, 16)
                 }
+                .buttonStyle(PlainButtonStyle())
             }
         }
     }
@@ -99,13 +105,14 @@ private extension MoviesListView {
 
             Spacer()
         }
+        .accessibilityAddTraits(.isHeader)
     }
 
     var popularMoviesGrid: some View {
         LazyVGrid(columns: [
-            GridItem(.flexible(), spacing: 12),
-            GridItem(.flexible(), spacing: 12),
-        ], spacing: 16) {
+            GridItem(.flexible(), spacing: 16),
+            GridItem(.flexible(), spacing: 16),
+        ], spacing: 20) {
             ForEach(store.movies.dropFirst(), id: \.id) { movie in
                 Button {
                     store.send(.movieDidTap(movie))

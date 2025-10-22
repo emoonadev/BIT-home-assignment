@@ -18,6 +18,9 @@ struct MovieRowView: View {
         .background(Color(.secondarySystemBackground))
         .cornerRadius(12)
         .shadow(color: .black.opacity(0.08), radius: 6, x: 0, y: 3)
+        .accessibilityElement(children: .combine)
+        .accessibilityLabel("\(movie.name), rated \(movie.voteAverage.formatted(.number.precision(.fractionLength(1)))) out of 10")
+        .accessibilityHint("Double tap to view movie details")
     }
 }
 
@@ -28,24 +31,14 @@ private extension MovieRowView {
     var posterImageView: some View {
         MovieImageView(imageURL: movie.posterImage)
             .aspectRatio(2 / 3, contentMode: .fit)
-            .overlay {
-                VStack {
-                    Spacer()
-                    Image(systemName: "play.fill")
-                        .font(.title2)
-                        .foregroundColor(.white)
-                        .shadow(radius: 2)
-                    Spacer()
-                }
-            }
+            .accessibilityHidden(true)
     }
 
     var movieInfoView: some View {
-        VStack(alignment: .leading, spacing: 8) {
+        VStack(alignment: .leading) {
             Text(movie.name)
-                .font(.headline)
+                .font(.subheadline)
                 .fontWeight(.semibold)
-                .foregroundColor(.primary)
                 .lineLimit(2)
                 .multilineTextAlignment(.leading)
             
@@ -54,17 +47,19 @@ private extension MovieRowView {
                     .font(.caption)
                     .foregroundColor(.yellow)
 
-                Text(movie.voteAverage.formatted())
+                Text(movie.voteAverage.formatted(.number.precision(.fractionLength(1))))
                     .font(.caption)
                     .fontWeight(.medium)
             }
+            .accessibilityElement(children: .combine)
+            .accessibilityLabel("Rating \(movie.voteAverage.formatted(.number.precision(.fractionLength(1)))) out of 10")
             
-            Text(movie.createdAt.formatted())
+            Text(movie.createdAt.formatted(date: .abbreviated, time: .omitted))
                 .font(.caption2)
                 .foregroundColor(.secondary)
+                .accessibilityLabel("Release date \(movie.createdAt.formatted(date: .complete, time: .omitted))")
         }
         .padding(12)
         .frame(maxWidth: .infinity, alignment: .leading)
     }
-    
 }
