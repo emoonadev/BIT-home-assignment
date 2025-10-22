@@ -7,9 +7,18 @@
 
 import SwiftUI
 import SwiftData
+import ComposableArchitecture
 
 @main
 struct CineNowApp: App {
+    let store = Store<MainFeature.State, MainFeature.Action>.withContext(initialState: MainFeature.State()) {
+        MainFeature()
+    }
+    
+    init() {
+        setup()
+    }
+    
     var sharedModelContainer: ModelContainer = {
         let schema = Schema([
 //            Item.self,
@@ -25,8 +34,18 @@ struct CineNowApp: App {
 
     var body: some Scene {
         WindowGroup {
-            MainView()
+            MainView(store: store)
         }
         .modelContainer(sharedModelContainer)
     }
+}
+
+// MARK: - Configurations
+
+extension CineNowApp {
+    
+    func setup() {
+        ImageCacheManager.configure()
+    }
+    
 }
