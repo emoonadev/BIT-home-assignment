@@ -19,7 +19,7 @@ struct MovieRowView: View {
         .cornerRadius(12)
         .shadow(color: .white.opacity(0.08), radius: 6, x: 0, y: 3)
         .accessibilityElement(children: .combine)
-        .accessibilityLabel("\(movie.title), rated \(movie.voteAverage.formatted(.number.precision(.fractionLength(1)))) out of 10")
+        .accessibilityLabel("\(movie.title), rated \(movie.formattedVoteAverage) out of 10")
         .accessibilityHint("Double tap to view movie details")
     }
 }
@@ -35,14 +35,14 @@ private extension MovieRowView {
     }
 
     var movieInfoView: some View {
-        VStack(alignment: .leading) {
+        HStack {
             HStack(spacing: 4) {
                 Image(systemName: "star.fill")
                     .font(.caption)
                     .foregroundColor(.yellow)
 
                 HStack(spacing: 2) {
-                    Text(movie.voteAverage.formatted(.number.precision(.fractionLength(1))))
+                    Text(movie.formattedVoteAverage)
                         .foregroundColor(.primary)
                         .font(.caption)
                         .fontWeight(.medium)
@@ -53,7 +53,9 @@ private extension MovieRowView {
                 }
             }
             .accessibilityElement(children: .combine)
-            .accessibilityLabel("Rating \(movie.voteAverage.formatted(.number.precision(.fractionLength(1)))) out of 10")
+            .accessibilityLabel("Rating \(movie.formattedVoteAverage) out of 10")
+            
+            Spacer()
             
             Text(movie.releaseDate.formatted(date: .abbreviated, time: .omitted))
                 .font(.caption2)

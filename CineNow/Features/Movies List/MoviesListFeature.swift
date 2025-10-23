@@ -96,12 +96,12 @@ struct MoviesListFeature {
                         }
                     }
                 case let .moviesLoaded(response):
-                    state.currentCategoryState.movies = response.results
+                state.currentCategoryState.movies = response.results.sorted { $0.releaseDate > $1.releaseDate}
                     state.currentCategoryState.currentPage = response.page
                     state.currentCategoryState.totalPages = response.totalPages
                     state.isLoading = false
                 case let .moreMoviesLoaded(response):
-                    state.currentCategoryState.movies.append(contentsOf: response.results)
+                    state.currentCategoryState.movies.append(contentsOf: response.results.sorted { $0.releaseDate > $1.releaseDate})
                     state.currentCategoryState.currentPage = response.page
                     state.currentCategoryState.totalPages = response.totalPages
                     state.isLoadingMore = false

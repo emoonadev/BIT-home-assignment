@@ -22,12 +22,9 @@ extension GetMoviesUseCase {
     
     func getList(for category: Movie.Category, page: Int) async throws -> MoviesListResponseDTO {
         switch category {
-            case .upcoming: 
-                return try await movieRepository.fetchUpcoming(at: page)
-            case .topRated: 
-                return try await movieRepository.fetchTopRated(at: page)
-            case .nowPlaying: 
-                return try await movieRepository.fetchNowPlaying(at: page)
+            case .upcoming: try await movieRepository.fetchUpcoming(at: page)
+            case .topRated: try await movieRepository.fetchTopRated(at: page)
+            case .nowPlaying: try await movieRepository.fetchNowPlaying(at: page)
         }
     }
 }
