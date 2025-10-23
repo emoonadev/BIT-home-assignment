@@ -21,7 +21,7 @@ struct Movie: Codable {
         voteAverage
             .formatted(
                 .number.precision(
-                    .integerAndFractionLength(integerLimits: 1..., fractionLimits: 0...2)
+                    .integerAndFractionLength(integerLimits: 1..., fractionLimits: 0...1)
                 )
             )
     }
