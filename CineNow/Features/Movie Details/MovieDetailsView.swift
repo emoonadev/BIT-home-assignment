@@ -165,9 +165,15 @@ private extension MovieDetailsView {
                     .foregroundColor(.yellow)
                     .font(.caption)
 
-                Text(movie.voteAverage.formatted(.number.precision(.fractionLength(1))))
-                    .font(.title2)
-                    .fontWeight(.semibold)
+                HStack(spacing: 2) {
+                    Text(movie.formattedVoteAverage)
+                        .font(.title2)
+                        .fontWeight(.semibold)
+                    
+                    Text("/10")
+                        .foregroundColor(.secondary)
+                        .font(.title3)
+                }
 
                 VStack {
                     Spacer()
@@ -179,7 +185,7 @@ private extension MovieDetailsView {
             }
         }
         .accessibilityElement(children: .combine)
-        .accessibilityLabel("Rating: \(movie.voteAverage.formatted(.number.precision(.fractionLength(1)))) stars out of 10, based on \(movie.voteCount) votes")
+        .accessibilityLabel("Rating: \(movie.formattedVoteAverage) stars out of 10, based on \(movie.voteCount) votes")
     }
 
     func overviewSection(_ movie: Movie) -> some View {

@@ -12,10 +12,20 @@ struct Movie: Codable {
     let overview: String
     let releaseDate: Date
     let title: String
-    let voteAverage: Double
     let voteCount: Int
-    private let posterPath: String
+    let voteAverage: Double
     
+    private let posterPath: String
+
+    var formattedVoteAverage: String {
+        voteAverage
+            .formatted(
+                .number.precision(
+                    .integerAndFractionLength(integerLimits: 1..., fractionLimits: 0...2)
+                )
+            )
+    }
+
     var posterImage: URL? { URL(string: "https://image.tmdb.org/t/p/w500" + posterPath) }
 
     init(id: Int, overview: String, releaseDate: Date, title: String, voteAverage: Double, voteCount: Int, posterPath: String) {
@@ -35,7 +45,7 @@ extension Movie {
     
     enum Category: String, CaseIterable {
         case upcoming, topRated, nowPlaying
-        
+
         var displayName: String {
             return switch self {
                 case .upcoming: "Upcoming"

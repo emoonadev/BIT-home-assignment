@@ -19,7 +19,7 @@ struct FeaturedMovieCardView: View {
         .cornerRadius(16)
         .shadow(color: .white.opacity(0.1), radius: 8, x: 0, y: 4)
         .accessibilityElement(children: .combine)
-        .accessibilityLabel("Featured movie: \(movie.title), rated \(movie.voteAverage.formatted(.number.precision(.fractionLength(1)))) out of 10")
+        .accessibilityLabel("Featured movie: \(movie.title), rated \(movie.formattedVoteAverage) out of 10")
         .accessibilityHint("Double tap to view movie details")
     }
 }
