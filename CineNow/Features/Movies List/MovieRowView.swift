@@ -36,6 +36,14 @@ private extension MovieRowView {
 
     var movieInfoView: some View {
         HStack {
+            
+            Text(movie.releaseDate.formatted(date: .numeric, time: .omitted))
+                .font(.caption2)
+                .foregroundColor(.secondary)
+                .accessibilityLabel("Release date \(movie.releaseDate.formatted(date: .complete, time: .omitted))")
+            
+            Spacer()
+            
             HStack(spacing: 4) {
                 Image(systemName: "star.fill")
                     .font(.caption)
@@ -54,13 +62,6 @@ private extension MovieRowView {
             }
             .accessibilityElement(children: .combine)
             .accessibilityLabel("Rating \(movie.formattedVoteAverage) out of 10")
-            
-            Spacer()
-            
-            Text(movie.releaseDate.formatted(date: .abbreviated, time: .omitted))
-                .font(.caption2)
-                .foregroundColor(.secondary)
-                .accessibilityLabel("Release date \(movie.releaseDate.formatted(date: .complete, time: .omitted))")
         }
         .padding(12)
         .frame(maxWidth: .infinity, alignment: .leading)
