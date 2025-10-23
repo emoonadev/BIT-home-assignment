@@ -94,7 +94,7 @@ private extension FeaturedMovieCardView {
             }
 
             HStack(spacing: 2) {
-                Text(rating.formatted(.number.precision(.fractionLength(1))))
+                Text(rating.formatted(.number.precision(.integerAndFractionLength(integerLimits: 1..., fractionLimits: 0...1))))
                     .font(.caption)
                     .fontWeight(.medium)
                     .foregroundColor(.primary)
